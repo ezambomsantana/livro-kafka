@@ -1,12 +1,12 @@
 package com.santana.repository;
 
-import com.santana.model.Shop;
+import com.santana.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ShopRepository extends JpaRepository<Shop, Long> {
+public interface ProductRepository extends JpaRepository<Product, Long> {
 	
-	public Shop findByIdentifier(String identifier);
+	Product findByIdentifier(String identifier);
 	
 }
