@@ -1,2 +1,2 @@
-insert into product values('SUCCESS', 0);
-insert into product values('ERROR', 0);
+insert into shop_report(identifier, amount) values('SUCCESS', 0);
+insert into shop_report(identifier, amount) values('ERROR', 0);
