@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>shop-consumer</artifactId>
+    <artifactId>shop-validator</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>

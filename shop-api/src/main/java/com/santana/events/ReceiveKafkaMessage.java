@@ -25,8 +25,7 @@ public class ReceiveKafkaMessage {
 	    
 	    Shop shop = shopRepository.findByIdentifier(shopDTO.getIdentifier());
 	    shop.setStatus(shopDTO.getStatus());
-	    shopRepository.save(shop);	   
-	    
+	    shopRepository.save(shop);
 	}
 
 }
