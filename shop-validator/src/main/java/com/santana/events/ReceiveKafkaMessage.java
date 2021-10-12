@@ -25,7 +25,7 @@ public class ReceiveKafkaMessage {
 	private final KafkaTemplate<String, ShopDTO> kafkaTemplate;
 	
 	@KafkaListener(topics = SHOP_TOPIC_NAME, groupId = "group")
-	public void listenGroupFoo(ShopDTO shopDTO) {
+	public void listenShopTopic(ShopDTO shopDTO) {
 	    log.info("Compra recebida no tópico: {}.", shopDTO.getIdentifier());
 	    
 	    boolean success = true;
