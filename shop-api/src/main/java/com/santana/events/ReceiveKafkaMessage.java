@@ -20,7 +20,7 @@ public class ReceiveKafkaMessage {
 	private static final String SHOP_TOPIC_EVENT_NAME = "SHOP_TOPIC_EVENT";
 	
 	@KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group")
-	public void listenGroupFoo(ShopDTO shopDTO) {
+	public void listenShopEvents(ShopDTO shopDTO) {
 	    log.info("Status da compra recebida no tópico: {}.", shopDTO.getIdentifier());
 	    
 	    Shop shop = shopRepository.findByIdentifier(shopDTO.getIdentifier());
