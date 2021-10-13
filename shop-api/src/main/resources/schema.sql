@@ -1,5 +1,6 @@
 create table shop (
     id bigserial primary key auto_increment,
+    buyer_identifier varchar(100) not null,
     identifier varchar not null,
     status varchar not null,
     date_shop date

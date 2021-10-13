@@ -1,6 +1,9 @@
 package com.santana.events;
 
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.handler.annotation.Header;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -25,8 +28,12 @@ public class ReceiveKafkaMessage {
 	private final KafkaTemplate<String, ShopDTO> kafkaTemplate;
 	
 	@KafkaListener(topics = SHOP_TOPIC_NAME, groupId = "group")
-	public void listenShopTopic(ShopDTO shopDTO) {
-	    log.info("Compra recebida no tópico: {}.", shopDTO.getIdentifier());
+	public void listenShopTopic(ShopDTO shopDTO,
+			@Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
+			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) String partitionId,
+			@Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp) {
+	    log.info("Compra recebida no tópico: {} com chave {} na partição {} hora {}.", 
+	    		shopDTO.getIdentifier(), key, partitionId, timestamp);
 	    
 	    boolean success = true;
 	    for (ShopItemDTO item : shopDTO.getItems()) {
