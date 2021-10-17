@@ -15,7 +15,13 @@ public class Main {
 		
 		AdminClient adminClient = AdminClient.create(properties);
 		
-		KafkaAdmin.createTopic(adminClient);
+	//	KafkaAdmin.createTopic("topico-4", 2, (short) 1, adminClient);
+	//	KafkaAdmin.createTopic("topico-5", 2, (short) 1, adminClient);
+		
+		
+		KafkaAdmin.listTopic(adminClient);
+		
+		KafkaAdmin.describeTopic("topico-1", adminClient);
 
 	}
 
