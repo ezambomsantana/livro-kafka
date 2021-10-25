@@ -31,7 +31,7 @@ class Consumer(threading.Thread):
             print("Read error")
             logging.error(exception)
 
-    def get_messages():
-        return messages
+    def get_messages(self):
+        return self.messages
 
     messages = []
