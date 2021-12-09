@@ -21,11 +21,15 @@ public class ReceiveKafkaMessage {
 	
 	@KafkaListener(topics = SHOP_TOPIC_EVENT_NAME, groupId = "group")
 	public void listenShopEvents(ShopDTO shopDTO) {
-	    log.info("Status da compra recebida no tópico: {}.", shopDTO.getIdentifier());
-	    
-	    Shop shop = shopRepository.findByIdentifier(shopDTO.getIdentifier());
-	    shop.setStatus(shopDTO.getStatus());
-	    shopRepository.save(shop);
+		try {
+		    log.info("Status da compra recebida no tópico: {}.", shopDTO.getIdentifier());
+		    
+		    Shop shop = shopRepository.findByIdentifier(shopDTO.getIdentifier());
+		    shop.setStatus(shopDTO.getStatus());
+		    shopRepository.save(shop);
+		} catch(Exception e) {
+			log.error("Erro no processamento da compra {}", shopDTO.getIdentifier());
+		}
 	}
 
 }

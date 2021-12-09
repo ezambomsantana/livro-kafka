@@ -35,22 +35,27 @@ public class ReceiveKafkaMessage {
 	    log.info("Compra recebida no tópico: {} com chave {} na partição {} hora {}.", 
 	    		shopDTO.getIdentifier(), key, partitionId, timestamp);
 	    
-	    boolean success = true;
-	    for (ShopItemDTO item : shopDTO.getItems()) {
-	    	Product product = productRepository.findByIdentifier(item.getProductIdentifier());
-	    	if (product == null || product.getAmount() < item.getAmount()) {
-			    log.info("Erro no processamento da compra {}.", shopDTO.getIdentifier());
-	    		shopDTO.setStatus("ERROR");
-	    		success = false;
-	    		kafkaTemplate.send(SHOP_TOPIC_EVENT_NAME, shopDTO);
-	    		break;
-	    	}
-	    }
-	    if (success) {
-		    log.info("Compra {} efetuada com sucesso.", shopDTO.getIdentifier());
-			shopDTO.setStatus("SUCCESS");
-			kafkaTemplate.send(SHOP_TOPIC_EVENT_NAME, shopDTO);
-	    }
+	    try {
+		    
+		    boolean success = true;
+		    for (ShopItemDTO item : shopDTO.getItems()) {
+		    	Product product = productRepository.findByIdentifier(item.getProductIdentifier());
+		    	if (product == null || product.getAmount() < item.getAmount()) {
+				    log.info("Erro no processamento da compra {}.", shopDTO.getIdentifier());
+		    		shopDTO.setStatus("ERROR");
+		    		success = false;
+		    		kafkaTemplate.send(SHOP_TOPIC_EVENT_NAME, shopDTO);
+		    		break;
+		    	}
+		    }
+		    if (success) {
+			    log.info("Compra {} efetuada com sucesso.", shopDTO.getIdentifier());
+				shopDTO.setStatus("SUCCESS");
+				kafkaTemplate.send(SHOP_TOPIC_EVENT_NAME, shopDTO);
+		    }
+		} catch(Exception e) {
+			log.error("Erro no processamento da compra {}", shopDTO.getIdentifier());
+		}
 	    
 	}
 
