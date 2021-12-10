@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import com.santana.dto.ShopDTO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SendKafkaMessage {
@@ -18,5 +20,5 @@ public class SendKafkaMessage {
 	public void sendMessage(ShopDTO msg) {
 	    kafkaTemplate.send(SHOP_TOPIC_NAME, msg.getBuyerIdentifier(), msg);
 	}
-
+	
 }
