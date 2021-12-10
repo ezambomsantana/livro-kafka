@@ -28,12 +28,9 @@ public class ReceiveKafkaMessage {
 	private final KafkaTemplate<String, ShopDTO> kafkaTemplate;
 	
 	@KafkaListener(topics = SHOP_TOPIC_NAME, groupId = "group")
-	public void listenShopTopic(ShopDTO shopDTO,
-			@Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
-			@Header(KafkaHeaders.RECEIVED_PARTITION_ID) String partitionId,
-			@Header(KafkaHeaders.RECEIVED_TIMESTAMP) String timestamp) {
-	    log.info("Compra recebida no tópico: {} com chave {} na partição {} hora {}.", 
-	    		shopDTO.getIdentifier(), key, partitionId, timestamp);
+	public void listenShopTopic(ShopDTO shopDTO) {
+	    log.info("Compra recebida no tópico: {}", 
+	    		shopDTO.getIdentifier());
 	    
 	    boolean success = true;
 	    for (ShopItemDTO item : shopDTO.getItems()) {
@@ -54,7 +51,7 @@ public class ReceiveKafkaMessage {
 
 	// valida se a compra possui algum erro
 	private boolean isValidShop(ShopItemDTO item, Product product) {
-		return product != null ||
+		return product != null &&
 			product.getAmount() >= item.getAmount();
 	}
 

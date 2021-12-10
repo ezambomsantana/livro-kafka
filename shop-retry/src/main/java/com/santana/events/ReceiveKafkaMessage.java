@@ -21,14 +21,14 @@ public class ReceiveKafkaMessage {
 	private static final String SHOP_TOPIC_RETRY = "SHOP_TOPIC_RETRY";
 		
 	@KafkaListener(topics = SHOP_TOPIC, groupId = "group_report")
-	public void listenShopTopic(ShopDTO shopDTO) throws Exception {
+	public void listenShopTopic(ShopDTO shopDTO) {
 		try {
 			log.info("Compra recebida no tópico: {}.", shopDTO.getIdentifier());	
 			if (shopDTO.getItems() == null ||
 					shopDTO.getItems().isEmpty()) {
 				log.error("Compra sem items.");
+				throw new Exception();
 			}
-			throw new Exception();
 		} catch(Exception e) {
 			log.info("Erro na aplicação");
 			kafkaTemplate.send(SHOP_TOPIC_RETRY, shopDTO);
