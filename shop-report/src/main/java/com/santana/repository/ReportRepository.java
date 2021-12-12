@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 public interface ReportRepository extends JpaRepository<ShopReport, Long> {
 	
 	@Modifying
-	@Query(value = "update shop_report set amount = amount + 1 where identifier = :shopStatus",  nativeQuery = true)
+	@Query(value = "update shop_report "
+			+ "set amount = amount + 1 "
+			+ "where identifier = :shopStatus",
+			nativeQuery = true)
 	void incrementShopStatus(String shopStatus);
 	
 }

@@ -39,8 +39,13 @@ public class ReceiveKafkaMessageTests {
 
 	@Test
 	public void testProcessShopSuccess() {
+		
 		ShopDTO shopDTO = getShopDTO();
-		receiveKafkaMessage.listenShopTopic(shopDTO);						
+		receiveKafkaMessage.listenShopTopic(shopDTO);	
+		
+		Mockito
+			.verify(kafkaTemplate, Mockito.never())
+			.send(SHOP_TOPIC_RETRY, shopDTO);
 	}
 	
 
@@ -51,7 +56,7 @@ public class ReceiveKafkaMessageTests {
 		receiveKafkaMessage.listenShopTopic(shopDTO);	
 		
 		Mockito
-		.verify(kafkaTemplate, Mockito.times(1))
-		.send(SHOP_TOPIC_RETRY, shopDTO);
+			.verify(kafkaTemplate, Mockito.times(1))
+			.send(SHOP_TOPIC_RETRY, shopDTO);
 	}
 }
