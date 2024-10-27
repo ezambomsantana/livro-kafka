@@ -22,7 +22,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import com.santana.dto.ShopDTO;
 
 @Configuration
-public class KafkaConfig {
+public class    KafkaConfig {
     
     @Value(value = "${kafka.bootstrapAddress:localhost:9092}")
     private String bootstrapAddress;
