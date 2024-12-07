@@ -12,7 +12,7 @@ class Consumer(threading.Thread):
     def run(self):
         try:
             consumer = KafkaConsumer(
-                bootstrap_servers=['kafka:9092'],
+                bootstrap_servers=['localhost:9092'],
                 group_id="grupo_python",                         
                 consumer_timeout_ms=30000
             )

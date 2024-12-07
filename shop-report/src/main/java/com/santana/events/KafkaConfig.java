@@ -24,7 +24,7 @@ import com.santana.dto.ShopDTO;
 @Configuration
 public class    KafkaConfig {
     
-    @Value(value = "${kafka.bootstrapAddress:localhost:9092}")
+    @Value(value = "${kafka.bootstrapAddress:kafka:9092}")
     private String bootstrapAddress;
 
     public ProducerFactory<String, ShopDTO> producerFactory() {
